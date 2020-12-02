@@ -1,6 +1,7 @@
 @{
     ViewData["Title"] = "Intervention";
 }
+@{ var user = await UserManager.GetUserAsync(User);}
 @using Microsoft.AspNetCore.Identity
 @using Rocker_Elevator_Customer_Portal.Areas.Identity.Data
 @using System.Web;
@@ -70,7 +71,7 @@
               <!-- /Alert Mandatory -->
 
 						<div class="col-md-8 col-sm-8">
-							<form role="form" action="/interventions/new" accept-charset="UTF-8" method="post">
+							<form role="form" asp-controller="Home" asp-action="submitForm" accept-charset="UTF-8" method="post">
 									<div class="row">
 											<div class="col-md-4", id="customer">
                                                 <div class="form-group"><label for="customer_id">Customer Id *</label>
@@ -122,8 +123,7 @@
 											<div class="col-md-12">
                                                 <div class="form-group">
                                                     <label class="required" for="report">Description *</label>
-                                                    <textarea maxlength="10000" rows="8" required="required" class="form-control" name="report" id="report">                                                    
-                                                    </textarea>
+                                                    <textarea maxlength="10000" rows="8" required="required" class="form-control" name="report" id="report"></textarea>
                                                 </div> 
 											</div>
 									</div>
@@ -147,9 +147,7 @@
 
     $(document).ready(function() {
 
-        @{ var user = await UserManager.GetUserAsync(User);}
         var userId = "@user?.Id";
-
 
         $("#battery").hide();
         $("#column").hide();
@@ -282,7 +280,6 @@
 			
         $("#battery_id").on("change", function(){
 
-            
             var itemId = $("#battery_id").val();
 
             if (itemId != "" && itemId != "---Select---" ){
