@@ -1,0 +1,386 @@
+@{
+    ViewData["Title"] = "Intervention";
+}
+@using Microsoft.AspNetCore.Identity
+@using Rocker_Elevator_Customer_Portal.Areas.Identity.Data
+@using System.Web;
+
+
+@inject SignInManager<Client> SignInManager
+@inject UserManager<Client> UserManager
+
+<img src="/wwwroot/images/repairs.jpg" width= "100%">
+
+
+
+			<section id="intervention contact-form">
+				<div class="container">
+
+					<header class="text-center mb-60 ">
+						<h2>Intervention Form</h2>
+						
+						<p class="lead font-lato">Fill this form to send an intervention request. </p>
+						<hr />
+					</header>
+
+
+					<div class="row">
+
+							              <!-- Alert Success -->
+              <div id="alert_success" class="alert alert-success mb-30">
+                <button
+                  type="button"
+                  class="close"
+                  data-dismiss="alert"
+                  aria-hidden="true"
+                >
+                  &times;
+                </button>
+                <strong>Thank You!</strong> Your message successfully sent!
+              </div>
+              <!-- /Alert Success -->
+
+              <!-- Alert Failed -->
+              <div id="alert_failed" class="alert alert-danger mb-30">
+                <button
+                  type="button"
+                  class="close"
+                  data-dismiss="alert"
+                  aria-hidden="true"
+                >
+                  &times;
+                </button>
+                <strong>[SMTP] Error!</strong> Internal server error!
+              </div>
+              <!-- /Alert Failed -->
+
+              <!-- Alert Mandatory -->
+              <div id="alert_mandatory" class="alert alert-danger mb-30">
+                <button
+                  type="button"
+                  class="close"
+                  data-dismiss="alert"
+                  aria-hidden="true"
+                >
+                  &times;
+                </button>
+                <strong>Sorry!</strong> You need to complete all mandatory (*)
+                fields!
+              </div>
+              <!-- /Alert Mandatory -->
+
+						<div class="col-md-8 col-sm-8">
+							<form role="form" action="/interventions/new" accept-charset="UTF-8" method="post">
+									<div class="row">
+											<div class="col-md-4", id="customer">
+                                                <div class="form-group"><label for="customer_id">Customer Id *</label>
+                                                    <select class="form-control custom-select mb-0 mr-sm-0 mb-sm-0" required="required" name="customer_id" id="customer_id" disabled>
+                                                    </select>
+                                                </div>                                
+											</div>
+									</div>
+									<div class = "row">
+										<div class="col-sm-3", id="building">
+											<div class="form-group"><label for="building_id">Building ID *</label>
+                                                <select class="form-control custom-select mb-0 mr-sm-0 mb-sm-0" required="required" name="building_id" id="building_id"><option value="">---Select---</option>
+                                                <option value="1">6007 Applegate Lane</option>
+                                                </select>
+                                            </div>
+										</div>
+										<div class="col-sm-3", id="battery">
+										<div class="form-group"><label for="battery_id">Battery ID</label>
+                                                <select class="form-control custom-select mb-0 mr-sm-0 mb-sm-0" name="battery_id" id="battery_id"><option value="">---Select---</option>
+                                                <option value="1">(ID: 1) mou48d2lwwbi</option>
+                                                </select>
+                                            </div>
+										</div>
+										<div class="col-sm-3", id="column">
+                                            <div class="form-group"><label for="column_id">Column ID</label>
+                                                <select class="form-control custom-select mb-0 mr-sm-0 mb-sm-0" name="column_id" id="column_id"><option value="">---Select---</option>
+                                                <option value="1">(ID: 1)</option>
+                                                </select>
+                                            </div> 
+										</div>
+										<div class="col-sm-3", id= "elevator">
+                                            <div class="form-group"><label for="elevator_id">ElevatorID </label>
+                                                <select class="form-control custom-select mb-0 mr-sm-0 mb-sm-0" name="elevator_id" id="elevator_id"><option value="">---Select---</option>
+                                                <option value="1">(ID: 1) cm6r3w2bev</option>
+                                                </select>
+                                            </div>
+                                        </div>
+									</div>
+									<div class="row">
+										<div class="col-md-4">
+											<div class="form-group"><label for="employee_id">Employee</label>
+                                                <select class="form-control custom-select mb-0 mr-sm-0 mb-sm-0" name="employee_id" id="employee_id"><option value="">---Select---</option>
+                                                <option value="1">Nicolas Genest</option>
+                                                </select>
+                                            </div>
+										</div>
+									</div>
+									<div class="row">
+											<div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label class="required" for="report">Description *</label>
+                                                    <textarea maxlength="10000" rows="8" required="required" class="form-control" name="report" id="report">                                                    
+                                                    </textarea>
+                                                </div> 
+											</div>
+									</div>
+
+
+								</fieldset>
+
+								<div class="row">
+									<div class="col-md-12">
+                                    <input type="submit" name="commit" value="Send Request" class="btn btn-outline-danger " data-disable-with="Send Request" />
+									</div>
+								</div>
+                            </form>
+						</div>						
+					</div>
+				</div>
+			</section>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script>
+
+    $(document).ready(function() {
+
+        @{ var user = await UserManager.GetUserAsync(User);}
+        var userId = "@user?.Id";
+
+
+        $("#battery").hide();
+        $("#column").hide();
+        $("#elevator").hide();
+
+        var buildingQuery = `query {
+                            customerQuery(id:${userId}) {
+                                buildings{
+                                    id
+                                    address{
+                                        address1
+                                    }
+                                    }
+                                }
+                            }` 
+
+        var employeeQuery = `query {
+                        allemployeesQuery{
+                            id
+                            firstName
+                            lastName
+                            }
+                        }` 
+
+        $.ajax({
+                url: "https://rocket-elevators-graphql.azurewebsites.net/graphql",
+                headers: {  'Access-Control-Allow-Origin': '*' },
+                crossDomain: true,
+                method: "POST",  
+                contentType: 'application/json',
+                data: JSON.stringify({query : employeeQuery}),
+                error: function (xhr, status, error) {
+                    console.error('AJAX Error: ' + status + error);
+                },
+                success: function (response) {
+                    console.log(response);
+                    var elements = response["allemployeesQuery"];
+
+                    $("#employee_id ").find("option").remove();
+
+
+                    $("#employee_id").append('<option value = "">---Select---</option>');
+                    for(var i = 0; i < elements.length; i++){
+                        $("#employee_id").append('<option value="' + elements[i]["id"] + '">' + elements[i]["firstName"] + " " + elements[i]["lastName"] + '</option>');
+                    }
+                    
+                }
+
+            });
+                                                            
+        $.ajax({
+            url: "https://rocket-elevators-graphql.azurewebsites.net/graphql",
+            headers: {  'Access-Control-Allow-Origin': '*' },
+            crossDomain: true,
+            method: "POST",  
+            contentType: 'application/json',
+            data: JSON.stringify({query : buildingQuery}),
+            error: function (xhr, status, error) {
+                console.error('AJAX Error: ' + status + error);
+            },
+            success: function (response) {
+                console.log(response);
+                var elements = response["customerQuery"]["buildings"];
+
+                //$("select#building_id option").remove();
+                $("#building_id ").empty();
+
+
+                $("#building_id").append('<option value = "">---Select---</option>');
+                for(var i = 0; i < elements.length; i++){
+                    $("#building_id").append('<option value="' + elements[i]["id"] + '">' + elements[i]["address"]["address1"] + '</option>');
+                }
+                
+            }
+
+        });
+
+
+
+
+
+        $("#customer_id").append('<option value="' + userId + '">' + userId + '</option>');
+
+        $("#building_id").on("change", function(){
+   
+            var itemId = $("#building_id").val();
+
+
+            if (itemId != "" && itemId != "---Select---" ){
+
+                var veryQuery = `query {
+                                    batteryQuery(id:${itemId}) {
+                                            id
+                                            typeBuilding
+                                        }
+                                    }`   
+
+
+                $.ajax({
+                    url: "https://rocket-elevators-graphql.azurewebsites.net/graphql",
+                    headers: {  'Access-Control-Allow-Origin': '*' },
+                    crossDomain: true,
+                    method: "POST",  
+                    contentType: 'application/json',
+                    data: JSON.stringify({query : veryQuery}),
+                    error: function (xhr, status, error) {
+                        console.error('AJAX Error: ' + status + error);
+                    },
+                    success: function (response) {
+                        console.log(response);
+                        var elements = response["batteryQuery"];
+
+                        $("#battery_id ").find("option").remove();
+
+
+                        $("#battery_id").append('<option value = "">---Select---</option>');
+                        for(var i = 0; i < elements.length; i++){
+                            $("#battery_id").append('<option value="' + elements[i]["id"] + '">' + "(ID: " + elements[i]["id"] + ") " + elements[i]["typeBuilding"] + '</option>');
+                        }
+                        
+                    }
+
+                });
+            $("#battery").show();
+            }
+            $("#column_id").val("")
+			$("#elevator_id").val("")
+            $("#battery_id").val("")
+		});
+			
+        $("#battery_id").on("change", function(){
+
+            
+            var itemId = $("#battery_id").val();
+
+            if (itemId != "" && itemId != "---Select---" ){
+
+                var veryQuery = `query {
+                                    columnQuery(id:${itemId}) {
+                                            id
+                                            status
+                                        }
+                                    }`                                                              
+                $.ajax({
+                    url: "https://rocket-elevators-graphql.azurewebsites.net/graphql",
+                    headers: {  'Access-Control-Allow-Origin': '*' },
+                    crossDomain: true,
+                    method: "POST",  
+                    contentType: 'application/json',
+                    data: JSON.stringify({query : veryQuery}),
+                    error: function (xhr, status, error) {
+                        console.error('AJAX Error: ' + status + error);
+                    },
+                    success: function (response) {
+                        console.log(response);
+                        var elements = response["columnQuery"];
+
+
+                        $("#column_id ").find("option").remove();
+
+
+                        $("#column_id").append('<option value = "">---Select---</option>');
+                        for(var i = 0; i < elements.length; i++){
+                            $("#column_id").append('<option value="' + elements[i]["id"] + '">' +"(ID: " + elements[i]["id"] + ") " + elements[i]["status"] +  '</option>');
+                        }
+                        
+                    }
+
+                });
+
+                $("#column").show();
+            }
+			
+			$("#column_id").val("")
+			$("#elevator_id").val("")
+		});
+			
+        $("#column_id").on("change", function(){
+
+
+                        var itemId = $("#column_id").val();
+
+            if (itemId != "" && itemId != "---Select---" ){
+
+                var veryQuery = `query {
+                                    elevatorQuery(id:${itemId}) {
+                                            id
+                                            serialNumber
+                                        }
+                                    }`                                                              
+                $.ajax({
+                    url: "https://rocket-elevators-graphql.azurewebsites.net/graphql",
+                    headers: {  'Access-Control-Allow-Origin': '*' },
+                    crossDomain: true,
+                    method: "POST",  
+                    contentType: 'application/json',
+                    data: JSON.stringify({query : veryQuery}),
+                    error: function (xhr, status, error) {
+                        console.error('AJAX Error: ' + status + error);
+                    },
+                    success: function (response) {
+                        console.log(response);
+                        var elements = response["elevatorQuery"];
+
+                       $("#elevator_id ").find("option").remove();
+
+
+                        $("#elevator_id").append('<option value = "">---Select---</option>');
+                        for(var i = 0; i < elements.length; i++){
+                            $("#elevator_id").append('<option value="' + elements[i]["id"] + '">' +"(ID: " +  elements[i]["id"] + ") " + elements[i]["serialNumber"] + '</option>');
+                        }
+                        
+                    }
+
+                });
+
+                $("#elevator").show();
+            }
+			
+
+			$("#battery_id").val("")
+			$("#elevator_id").val("")
+
+        });
+
+		$("#elevator_id").on("change", function(){
+		
+			$("#battery_id").val("")
+			$("#column_id").val("")
+        });
+
+    });
+
+</script>
