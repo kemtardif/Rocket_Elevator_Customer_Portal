@@ -2208,6 +2208,11 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "c:\\Users\\tardi\\Rocker_Elevator_Customer_Portal\\Views\\Home\\Products.cshtml",
+      "TargetPath": "Views\\Home\\Products.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "c:\\Users\\tardi\\Rocker_Elevator_Customer_Portal\\Areas\\Identity\\Pages\\Account\\Logout.cshtml",
       "TargetPath": "Areas\\Identity\\Pages\\Account\\Logout.cshtml",
       "FileKind": "mvc"
@@ -2260,6 +2265,11 @@
     {
       "FilePath": "c:\\Users\\tardi\\Rocker_Elevator_Customer_Portal\\Views\\Home\\Intervention.cshtml",
       "TargetPath": "Views\\Home\\Intervention.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Users\\tardi\\Rocker_Elevator_Customer_Portal\\Views\\Home\\FlashMessage.cshtml",
+      "TargetPath": "Views\\Home\\FlashMessage.cshtml",
       "FileKind": "mvc"
     },
     {

@@ -8,6 +8,20 @@
     <title>@ViewData["Title"] - Rocker_Elevator_Customer_Portal</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inconsolata">
+    <style>
+    body, html {
+    height: 100%;
+    font-family: "Inconsolata", sans-serif;
+    }
+
+
+
+    .menu {
+    display: none;
+    }
+</style>
 </head>
 <body>
     <header>
@@ -24,15 +38,13 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
                     </ul>
                 </div>
             </div>
         </nav>
     </header>
     <div class="container">
+        @Html.Partial("FlashMessage")
         <main role="main" class="pb-3">
 
                     @RenderBody();
@@ -44,7 +56,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2020 - Rocker_Elevator_Customer_Portal - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2020 - Rocket Elevator Customer Portal - 
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

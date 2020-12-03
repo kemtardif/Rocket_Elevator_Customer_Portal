@@ -10,139 +10,98 @@
 @inject SignInManager<Client> SignInManager
 @inject UserManager<Client> UserManager
 
-<img src="/wwwroot/images/repairs.jpg" width= "100%">
-
-
-
-			<section id="intervention contact-form">
-				<div class="container">
-
-					<header class="text-center mb-60 ">
-						<h2>Intervention Form</h2>
-						
-						<p class="lead font-lato">Fill this form to send an intervention request. </p>
-						<hr />
-					</header>
-
-
-					<div class="row">
-
-							              <!-- Alert Success -->
-              <div id="alert_success" class="alert alert-success mb-30">
-                <button
-                  type="button"
-                  class="close"
-                  data-dismiss="alert"
-                  aria-hidden="true"
-                >
-                  &times;
-                </button>
-                <strong>Thank You!</strong> Your message successfully sent!
-              </div>
-              <!-- /Alert Success -->
-
-              <!-- Alert Failed -->
-              <div id="alert_failed" class="alert alert-danger mb-30">
-                <button
-                  type="button"
-                  class="close"
-                  data-dismiss="alert"
-                  aria-hidden="true"
-                >
-                  &times;
-                </button>
-                <strong>[SMTP] Error!</strong> Internal server error!
-              </div>
-              <!-- /Alert Failed -->
-
-              <!-- Alert Mandatory -->
-              <div id="alert_mandatory" class="alert alert-danger mb-30">
-                <button
-                  type="button"
-                  class="close"
-                  data-dismiss="alert"
-                  aria-hidden="true"
-                >
-                  &times;
-                </button>
-                <strong>Sorry!</strong> You need to complete all mandatory (*)
-                fields!
-              </div>
-              <!-- /Alert Mandatory -->
-
-						<div class="col-md-8 col-sm-8">
-							<form role="form" asp-controller="Home" asp-action="submitForm" accept-charset="UTF-8" method="post">
-									<div class="row">
-											<div class="col-md-4", id="customer">
-                                                <div class="form-group"><label for="customer_id">Customer Id *</label>
-                                                    <select class="form-control custom-select mb-0 mr-sm-0 mb-sm-0" required="required" name="customer_id" id="customer_id" disabled>
-                                                    </select>
-                                                </div>                                
-											</div>
-									</div>
-									<div class = "row">
-										<div class="col-sm-3", id="building">
-											<div class="form-group"><label for="building_id">Building ID *</label>
-                                                <select class="form-control custom-select mb-0 mr-sm-0 mb-sm-0" required="required" name="building_id" id="building_id"><option value="">---Select---</option>
-                                                <option value="1">6007 Applegate Lane</option>
-                                                </select>
-                                            </div>
-										</div>
-										<div class="col-sm-3", id="battery">
-										<div class="form-group"><label for="battery_id">Battery ID</label>
-                                                <select class="form-control custom-select mb-0 mr-sm-0 mb-sm-0" name="battery_id" id="battery_id"><option value="">---Select---</option>
-                                                <option value="1">(ID: 1) mou48d2lwwbi</option>
-                                                </select>
-                                            </div>
-										</div>
-										<div class="col-sm-3", id="column">
-                                            <div class="form-group"><label for="column_id">Column ID</label>
-                                                <select class="form-control custom-select mb-0 mr-sm-0 mb-sm-0" name="column_id" id="column_id"><option value="">---Select---</option>
-                                                <option value="1">(ID: 1)</option>
-                                                </select>
-                                            </div> 
-										</div>
-										<div class="col-sm-3", id= "elevator">
-                                            <div class="form-group"><label for="elevator_id">ElevatorID </label>
-                                                <select class="form-control custom-select mb-0 mr-sm-0 mb-sm-0" name="elevator_id" id="elevator_id"><option value="">---Select---</option>
-                                                <option value="1">(ID: 1) cm6r3w2bev</option>
-                                                </select>
-                                            </div>
-                                        </div>
-									</div>
-									<div class="row">
-										<div class="col-md-4">
-											<div class="form-group"><label for="employee_id">Employee</label>
-                                                <select class="form-control custom-select mb-0 mr-sm-0 mb-sm-0" name="employee_id" id="employee_id"><option value="">---Select---</option>
-                                                <option value="1">Nicolas Genest</option>
-                                                </select>
-                                            </div>
-										</div>
-									</div>
-									<div class="row">
-											<div class="col-md-12">
-                                                <div class="form-group">
-                                                    <label class="required" for="report">Description *</label>
-                                                    <textarea maxlength="10000" rows="8" required="required" class="form-control" name="report" id="report"></textarea>
-                                                </div> 
-											</div>
-									</div>
-
-
-								</fieldset>
-
-								<div class="row">
-									<div class="col-md-12">
-                                    <input type="submit" name="commit" value="Send Request" class="btn btn-outline-danger " data-disable-with="Send Request" />
-									</div>
-								</div>
-                            </form>
-						</div>						
-					</div>
-				</div>
-			</section>
 
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+
+
+
+<section id="intervention contact-form">
+    <div class="container">
+
+        <header class="text-center mb-60 ">
+            <h2>Intervention Form</h2>
+            
+            <p class="lead font-lato">Fill this form to send an intervention request. </p>
+            <hr />
+        </header>
+
+
+        <div class="row">
+
+            <div class="col-md-8 col-sm-8">
+                <form role="form" asp-controller="Home" asp-action="submitForm" accept-charset="UTF-8" method="post">
+                        <div class="row">
+                                <div class="col-md-4", id="customer">
+                                    <div class="form-group"><label for="customer_id">Customer Id *</label>
+                                        <select class="form-control custom-select mb-0 mr-sm-0 mb-sm-0" required="required" name="customer_id" id="customer_id" readonly>
+                                        </select>
+                                    </div>                                
+                                </div>
+                        </div>
+                        <div class = "row">
+                            <div class="col-sm-3", id="building">
+                                <div class="form-group"><label for="building_id">Building ID *</label>
+                                    <select class="form-control custom-select mb-0 mr-sm-0 mb-sm-0" required="required" name="building_id" id="building_id"><option value="">---Select---</option>
+                                    <option  value="1">6007 Applegate Lane</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-3", id="battery">
+                            <div class="form-group"><label for="battery_id">Battery ID</label>
+                                    <select class="form-control custom-select mb-0 mr-sm-0 mb-sm-0" name="battery_id" id="battery_id"><option value="">---Select---</option>
+                                    <option value="1">(ID: 1) mou48d2lwwbi</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-3", id="column">
+                                <div class="form-group"><label for="column_id">Column ID</label>
+                                    <select class="form-control custom-select mb-0 mr-sm-0 mb-sm-0" name="column_id" id="column_id"><option value="">---Select---</option>
+                                    <option value="1">(ID: 1)</option>
+                                    </select>
+                                </div> 
+                            </div>
+                            <div class="col-sm-3", id= "elevator">
+                                <div class="form-group"><label for="elevator_id">ElevatorID </label>
+                                    <select class="form-control custom-select mb-0 mr-sm-0 mb-sm-0" name="elevator_id" id="elevator_id"><option value="">---Select---</option>
+                                    <option value="1">(ID: 1) cm6r3w2bev</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group"><label for="employee_id">Employee</label>
+                                    <select class="form-control custom-select mb-0 mr-sm-0 mb-sm-0" name="employee_id" id="employee_id"><option value="">---Select---</option>
+                                    <option value="1">Nicolas Genest</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="required" for="report">Description *</label>
+                                        <textarea maxlength="10000" rows="8" required="required" class="form-control" name="report" id="report"></textarea>
+                                    </div> 
+                                </div>
+                        </div>
+
+
+                    </fieldset>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                        <input type="submit" name="commit" value="Send Request" class="btn btn-outline-danger " data-disable-with="Send Request" />
+                        </div>
+                    </div>
+                </form>
+            </div>						
+        </div>
+    </div>
+</section>
+
+
 <script>
 
     $(document).ready(function() {
@@ -162,8 +121,7 @@
                                     }
                                     }
                                 }
-                            }` 
-
+                            }`
         var employeeQuery = `query {
                         allemployeesQuery{
                             id
@@ -171,6 +129,10 @@
                             lastName
                             }
                         }` 
+
+        $("#battery").hide();
+        $("#column").hide();
+        $("#elevator").hide();
 
         $.ajax({
                 url: "https://rocket-elevators-graphql.azurewebsites.net/graphql",
@@ -212,7 +174,6 @@
                 console.log(response);
                 var elements = response["customerQuery"]["buildings"];
 
-                //$("select#building_id option").remove();
                 $("#building_id ").empty();
 
 
@@ -225,11 +186,7 @@
 
         });
 
-
-
-
-
-        $("#customer_id").append('<option value="' + userId + '">' + userId + '</option>');
+        $("#customer_id").append('<option selected value="' + userId + '">' + userId + '</option>');
 
         $("#building_id").on("change", function(){
    

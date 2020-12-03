@@ -1,0 +1,219 @@
+@{
+    ViewData["Title"] = "Products";
+
+}
+
+@{ var user = await UserManager.GetUserAsync(User);}
+@using Newtonsoft.Json.Linq;
+@using Microsoft.AspNetCore.Identity
+@using Rocker_Elevator_Customer_Portal.Areas.Identity.Data
+
+@inject SignInManager<Client> SignInManager
+@inject UserManager<Client> UserManager
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+<header class="text-center mb-60 " >
+    <h2>Products</h2>
+
+    <p class="lead font-lato">Sweet, sweet list of my products </p>
+    <hr />
+</header>
+
+<ul class="nav nav-tabs" id = "something">
+  <li class="active"><a data-toggle="tab" href="#elevators">Elevators</a></li>
+  <li><a data-toggle="tab" href="#columns">Columns</a></li>
+  <li><a data-toggle="tab" href="#batteries">Batteries</a></li>
+</ul>
+
+<div class="tab-content">
+  <div id="columns" class="tab-pane fade in active">
+    <table class="table">
+    <thead>
+        <tr>
+            <th>
+                Id
+            </th>
+            <th>
+                Type of Building
+            </th>
+            <th>
+                Amount of floors served
+            </th>
+            <th>
+                Status
+            </th>
+            <th>
+                Information
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var column in (JArray)ViewData["columns"]) {
+        <tr>
+            <td>
+                @column["id"]
+            </td>
+            <td>
+                @column["typeBuilding"]
+            </td>
+            <td>
+                @column["amountFloorsServed"]
+            </td>
+            <td>
+                @column["status"]
+            </td>
+            <td>
+                @column["information"]
+            </td>
+            <td>
+                <button type="button" onclick = "clicker('@(column["id"])','column', '@(column["battery"]["building"]["id"])' )" class="btn btn-info">Intervene!</button>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+  </div>
+  <div id="elevators" class="tab-pane fade">
+    <table class="table">
+    <thead>
+        <tr>
+            <th>
+                Id
+            </th>
+            <th>
+                Certificate of operation
+            </th>
+            <th>
+                Status
+            </th>
+            <th>
+                Date of commissioning
+            </th>
+            <th>
+                Date of Last Inspection
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var elevator in (JArray)ViewData["elevators"]) {
+        <tr>
+            <td>
+                @elevator["id"]
+            </td>
+            <td>
+                @elevator["certOpe"]
+            </td>
+            <td>
+                @elevator["status"]
+            </td>
+            <td>
+                @elevator["dateCommissioning"]
+            </td>
+            <td>
+                @elevator["dateLastInspection"]
+            </td>
+            <td>
+                <button type="button" onclick = "clicker('@(elevator["id"])','elevator', '@(elevator["column"]["battery"]["building"]["id"])' )" class="btn btn-info">Intervene!</button>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+  </div>
+  <div id="batteries" class="tab-pane fade">
+    <table class="table">
+    <thead>
+        <tr>
+            <th>
+                Id 
+            </th>
+            <th>
+                Certificate of operation
+            </th>
+            <th>
+                Status
+            </th>
+            <th>
+                Date of Last Inspection
+            </th>
+            <th>
+                Certificate of operation
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var battery in (JArray)ViewData["batteries"]) {
+        <tr>
+            <td>
+                @battery["id"]
+            </td>
+            <td>
+                @battery["certOpe"]
+            </td>
+            <td>
+                @battery["status"]
+            </td>
+            <td>
+                @battery["dateCommissioning"]
+            </td>
+            <td>
+                @battery["dateLastInspection"]
+            </td>
+            <td>
+                <button type="button" onclick = "clicker('@(battery["id"])','battery', '@(battery["building"]["id"])' )" class="btn btn-info">Intervene!</button>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+  </div>
+</div>
+
+
+<script>
+    var userId = "@user?.Id";
+
+    var clicker = function( id, type, building_id){
+
+
+        var formData = new FormData();
+
+        formData.append("customer_id", userId);
+        formData.append("building_id", building_id);
+        formData.append("result", "Incomplete");
+        formData.append("status", "pending");
+        formData.append("employee_id", 5);
+
+        if(type == 'elevator'){
+            formData.append("elevator_id", id);
+        } else if (type == 'column'){
+            formData.append("column_id", id);
+        } else {
+            formData.append("battery_id", id);
+        }
+
+        $.ajax({
+                url: '/Home/submitForm',
+                headers: {  'Access-Control-Allow-Origin': '*'},
+                crossDomain: true,
+                method: "POST",
+                processData: false,
+                contentType: false,
+                data: formData,
+                error: function (xhr, status, error) {
+                    console.error('AJAX Error: ' + status + error);
+                    $("#something").append($('<div class="alert alert-warning"><p><buttontype="button" class="close" data-dismiss="alert"aria-hidden="true" >&times;</button> There was ans error sending your request.</p></div>').fadeIn('slow'));
+                },
+                success: function (response) {
+                    console.log("Success");
+                    $("#something").append($('<div class="alert alert-success"><p><buttontype="button" class="close" data-dismiss="alert"aria-hidden="true" >&times;</button> Intervention succesfully sent!</p></div>').fadeIn('slow'));
+                    }                    
+                });            
+    }
+</script>

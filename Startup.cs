@@ -29,6 +29,8 @@ namespace Rocker_Elevator_Customer_Portal
             services.AddControllersWithViews();
 
             services.AddRazorPages();
+            
+            services.AddHttpContextAccessor();
 
 
 

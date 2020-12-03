@@ -1,8 +1,78 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
+@using Microsoft.AspNetCore.Identity
+@using Rocker_Elevator_Customer_Portal.Areas.Identity.Data
+@using System.Web;
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+@{ var user = await UserManager.GetUserAsync(User);}
+@inject SignInManager<Client> SignInManager
+@inject UserManager<Client> UserManager
+
+
+
+<!-- Add a background color and large text to the whole page -->
+<div class="w3-sand w3-grayscale w3-large">
+
+<!-- About Container -->
+<div class="w3-container" id="about">
+    <h5 class="w3-center w3-padding-64"><span class="w3-tag w3-wide">My customer portal</span></h5>
+    <p>This is your own customer portal. This is where you get to see and edit all of your products, and make a request for an intervention, if needed.</p>
+    <p>We will try to add more functionality with time. Thank you!</p>
+  </div>
 </div>
+
+<!-- Menu Container -->
+<div class="w3-container" id="menu">
+  <div class="w3-content" style="max-width:700px">
+ 
+    <h5 class="w3-center w3-padding-48"><span class="w3-tag w3-wide">Your options</span></h5>
+  
+    <div class="w3-row w3-center w3-card w3-padding">
+      <a href="javascript:void(0)" onclick="openMenu(event, 'My products');" id="myLink">
+        <div class="w3-col s6 tablink">My products</div>
+      </a>
+      <a href="javascript:void(0)" onclick="openMenu(event, 'Interventions');">
+        <div class="w3-col s6 tablink">Interventions</div>
+      </a>
+    </div>
+
+    <div id="My products" class="w3-container menu w3-padding-48 w3-card">
+      <h5>List of products</h5>
+      <p class="w3-text-grey">You get to see all of your products</p><br>
+    
+      <h5>Quick interventions</h5>
+      <p class="w3-text-grey">If you're in a hurry, you can make an intervention with the click of a button.</p><br>
+    </div>
+
+    <div id="Interventions" class="w3-container menu w3-padding-48 w3-card">
+      <h5>Interventions</h5>
+      <p class="w3-text-grey">For a more detailled intervention, you can submit a complete form.</p><br>
+    
+      <h5>Report</h5>
+      <p class="w3-text-grey">Write a complete report of the needed intervention</p><br>
+    </div>  
+  </div>
+</div>
+
+
+<!-- End page content -->
+</div>
+
+<script>
+// Tabbed Menu
+function openMenu(evt, menuName) {
+  var i, x, tablinks;
+  x = document.getElementsByClassName("menu");
+  for (i = 0; i < x.length; i++) {
+    x[i].style.display = "none";
+  }
+  tablinks = document.getElementsByClassName("tablink");
+  for (i = 0; i < x.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" w3-dark-grey", "");
+  }
+  document.getElementById(menuName).style.display = "block";
+  evt.currentTarget.firstElementChild.className += " w3-dark-grey";
+}
+document.getElementById("myLink").click();
+</script>
