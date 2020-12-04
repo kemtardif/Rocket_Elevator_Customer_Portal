@@ -49,6 +49,41 @@ namespace Rocker_Elevator_Customer_Portal.Controllers
             return View();
         }
 
+        public async Task<IActionResult> Building()
+        {
+            Client user = await _userManager.GetUserAsync(User);
+            string userId = user?.Id;
+
+             var detailQuery = "query { customerQuery(id:" + userId + "){buildings{id admContactPhone admContactMail admContactName address{id address1}}}}";
+
+            var url = "https://rocket-elevators-graphql.azurewebsites.net/graphql";
+
+            object query = new {
+                query = detailQuery
+            };
+
+            var json = Newtonsoft.Json.JsonConvert.SerializeObject(query);
+            var content = new StringContent(json.ToString(), Encoding.UTF8, "application/json");
+            content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+
+            var client = new HttpClient();
+
+            var response = await client.PostAsync(url, content);
+
+             if(response.IsSuccessStatusCode){
+                
+                var result = await response.Content.ReadAsStringAsync();
+                JObject detailJSON =  JObject.Parse(result);
+
+                ViewData["details"] = detailJSON["customerQuery"]["buildings"];
+           
+                return View();
+             }
+
+            SetFlash(FlashMessageType.Danger, "There was an error loading your page.");
+            return LocalRedirect("/Home/Index");
+        }
+
         public async Task<IActionResult> Products()
         {
             Client user = await _userManager.GetUserAsync(User);
@@ -139,9 +174,6 @@ namespace Rocker_Elevator_Customer_Portal.Controllers
             var client = new HttpClient();
             var response = await client.PostAsync(url, content);
 
-            Console.Write("####################");
-            Console.Write(response.IsSuccessStatusCode);
-            Console.Write("####################");
 
             if(response.IsSuccessStatusCode){
                 SetFlash(FlashMessageType.Success, "Intervention form succesfully sent!");
@@ -152,6 +184,59 @@ namespace Rocker_Elevator_Customer_Portal.Controllers
                 return LocalRedirect("/Home/Intervention");
             }
         }
+
+        [HttpPost]
+        public async Task<IActionResult> sendInfo([FromForm] InformationModel information)
+        {
+
+            object address = new {
+                id = information.addressId,
+                address = information.address
+            };
+
+            object details = new {
+                id = information.buildingId,
+                adm_contact_name = information.name,
+                adm_contact_phone = information.phone,
+                adm_contact_mail = information.email
+
+            };
+            var url1 = "https://rocket-elevators-foundation-restapi.azurewebsites.net/api/Addresses/" + information.addressId;
+            var url2 = "https://rocket-elevators-foundation-restapi.azurewebsites.net/api/Buildings/" + information.buildingId;
+
+            var json1 = Newtonsoft.Json.JsonConvert.SerializeObject(address);
+            var json2 = Newtonsoft.Json.JsonConvert.SerializeObject(details);
+
+
+            var content1 = new StringContent(json1.ToString(), Encoding.UTF8, "application/json");
+            content1.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+
+            var content2 = new StringContent(json2.ToString(), Encoding.UTF8, "application/json");
+            content2.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+         
+            var client = new HttpClient();
+            var response1 = await client.PutAsync(url1, content1);
+
+
+            if(response1.IsSuccessStatusCode){
+
+                var response2 = await client.PutAsync(url2, content2);
+
+                if(response2.IsSuccessStatusCode){
+                    SetFlash(FlashMessageType.Success, "Your informations were succesfully edited.");
+                    return LocalRedirect("/Home/Index");
+                }
+
+                SetFlash(FlashMessageType.Danger, "There was an error editing your informations");
+                return LocalRedirect("/Home/Building");
+
+            }else{
+
+                SetFlash(FlashMessageType.Danger, "There was an error editing your address");
+                return LocalRedirect("/Home/Building");
+            }
+        }
+
 
 
 

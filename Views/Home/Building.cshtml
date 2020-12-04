@@ -1,0 +1,75 @@
+@{
+    ViewData["Title"] = "Buildings Details";
+
+}
+@model InformationModel
+
+@using System.Web.Mvc;
+@using Newtonsoft.Json.Linq;
+@using Microsoft.AspNetCore.Identity
+@using Rocker_Elevator_Customer_Portal.Areas.Identity.Data
+@using Rocker_Elevator_Customer_Portal.Models
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+<header class="text-center mb-60 " >
+    <h2>Buildings Details</h2>
+
+    <p class="lead font-lato">Sweet, sweet list of my buildings. </p>
+    <hr />
+</header>
+
+    <table class="table">
+    <thead>
+        <tr>
+            <th>
+                Id
+            </th>
+            <th>
+                Address
+            </th>
+            <th>
+                Admin Contact Name
+            </th>
+            <th>
+                Admin Contact Phone
+            </th>
+            <th>
+                Admin Contact Mail
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var detail in (JArray)ViewData["details"]) {
+        <tr>
+            <td>
+                @detail["id"]
+            </td>
+        <form role="form" asp-controller="Home" asp-action="sendInfo" method="post">
+            <td>
+                <input type="text" class="form-control" asp-for="address" aria-describedby="emailHelp" value = "@detail["address"]["address1"]" >
+            </td>
+            <td>
+                <input type="text" class="form-control" asp-for="name" aria-describedby="emailHelp" value = "@detail["admContactName"]" >
+            </td>
+            <td>
+                 <input type="text" class="form-control" asp-for="phone" aria-describedby="emailHelp" value = "@detail["admContactPhone"]" >
+            </td>
+            <td>
+                <input type="email" class="form-control" asp-for="email" aria-describedby="emailHelp" value = "@detail["admContactMail"]" >
+            </td>
+            <td>
+                <input type = "hidden" asp-for="addressId"  value = "@detail["address"]["id"]" >
+                <input type = "hidden" asp-for="buildingId"  value = "@detail["id"]" >
+                <button type="submit"  class="btn btn-outline-info">Edit Info</button>
+            </td>
+        </form>
+        </tr>
+}
+    </tbody>
+</table>
+

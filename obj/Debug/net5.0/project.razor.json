@@ -2193,6 +2193,11 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "c:\\Users\\tardi\\Rocker_Elevator_Customer_Portal\\Views\\Home\\Building.cshtml",
+      "TargetPath": "Views\\Home\\Building.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "c:\\Users\\tardi\\Rocker_Elevator_Customer_Portal\\Areas\\Identity\\Pages\\Account\\Register.cshtml",
       "TargetPath": "Areas\\Identity\\Pages\\Account\\Register.cshtml",
       "FileKind": "mvc"
