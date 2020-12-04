@@ -18,7 +18,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-
+using Rocker_Elevator_Customer_Portal.Controllers; 
 namespace Rocker_Elevator_Customer_Portal.Areas.Identity.Pages.Account
 {
     [AllowAnonymous]
@@ -100,6 +100,7 @@ namespace Rocker_Elevator_Customer_Portal.Areas.Identity.Pages.Account
                         _logger.LogInformation("User created a new account with password.");
 
                             await _signInManager.SignInAsync(user, isPersistent: false);
+
                             return LocalRedirect(returnUrl);
 
                     }

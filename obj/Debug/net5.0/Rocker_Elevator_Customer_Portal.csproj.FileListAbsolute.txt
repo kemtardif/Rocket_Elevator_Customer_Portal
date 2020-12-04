@@ -167,5 +167,5 @@ C:\Users\tardi\Rocker_Elevator_Customer_Portal\bin\Debug\net5.0\Microsoft.Extens
 C:\Users\tardi\Rocker_Elevator_Customer_Portal\bin\Debug\net5.0\Microsoft.Web.Infrastructure.dll
 C:\Users\tardi\Rocker_Elevator_Customer_Portal\obj\Debug\net5.0\Razor\Views\Home\Intervention.cshtml.g.cs
 C:\Users\tardi\Rocker_Elevator_Customer_Portal\obj\Debug\net5.0\Razor\Views\Home\Products.cshtml.g.cs
-C:\Users\tardi\Rocker_Elevator_Customer_Portal\obj\Debug\net5.0\Razor\Views\Home\FlashMessage.cshtml.g.cs
 C:\Users\tardi\Rocker_Elevator_Customer_Portal\obj\Debug\net5.0\Razor\Views\Home\Building.cshtml.g.cs
+C:\Users\tardi\Rocker_Elevator_Customer_Portal\obj\Debug\net5.0\Razor\Views\Shared\FlashMessage.cshtml.g.cs
