@@ -29,6 +29,8 @@ namespace Rocker_Elevator_Customer_Portal.Controllers
         private readonly UserManager<Client> _userManager;
         private readonly GraphQLHelper _helper;
 
+        private readonly RESTHelper _RESTHelper;
+
 
 
 
@@ -37,6 +39,7 @@ namespace Rocker_Elevator_Customer_Portal.Controllers
             _logger = logger;
             _userManager = userManager;
             _helper = new GraphQLHelper();
+            _RESTHelper = new RESTHelper();
 
         }
 
@@ -129,19 +132,9 @@ namespace Rocker_Elevator_Customer_Portal.Controllers
         public async Task<IActionResult> submitForm([FromForm] Intervention intervention)
         {
 
-            intervention.author_id = intervention.customer_id;
-
             var url = "https://rocket-elevators-foundation-restapi.azurewebsites.net/api/Interventions";
 
-
-            var json = Newtonsoft.Json.JsonConvert.SerializeObject(intervention);
-
-            var content = new StringContent(json.ToString(), Encoding.UTF8, "application/json");
-            content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-         
-            var client = new HttpClient();
-            var response = await client.PostAsync(url, content);
-
+            var response = await _RESTHelper.postCall(url, intervention);
 
             if(response.IsSuccessStatusCode){
                 SetFlash(FlashMessageType.Success, "Intervention form succesfully sent!");
@@ -169,26 +162,15 @@ namespace Rocker_Elevator_Customer_Portal.Controllers
                 adm_contact_mail = information.email
 
             };
+            
             var url1 = "https://rocket-elevators-foundation-restapi.azurewebsites.net/api/Addresses/" + information.addressId;
             var url2 = "https://rocket-elevators-foundation-restapi.azurewebsites.net/api/Buildings/" + information.buildingId;
 
-            var json1 = Newtonsoft.Json.JsonConvert.SerializeObject(address);
-            var json2 = Newtonsoft.Json.JsonConvert.SerializeObject(details);
-
-
-            var content1 = new StringContent(json1.ToString(), Encoding.UTF8, "application/json");
-            content1.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-
-            var content2 = new StringContent(json2.ToString(), Encoding.UTF8, "application/json");
-            content2.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-         
-            var client = new HttpClient();
-            var response1 = await client.PutAsync(url1, content1);
-
+            var response1 = await _RESTHelper.putCall(url1, address);
 
             if(response1.IsSuccessStatusCode){
 
-                var response2 = await client.PutAsync(url2, content2);
+                var response2 =await _RESTHelper.putCall(url2, details);
 
                 if(response2.IsSuccessStatusCode){
                     
