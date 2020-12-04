@@ -169,3 +169,8 @@ C:\Users\tardi\Rocker_Elevator_Customer_Portal\obj\Debug\net5.0\Razor\Views\Home
 C:\Users\tardi\Rocker_Elevator_Customer_Portal\obj\Debug\net5.0\Razor\Views\Home\Products.cshtml.g.cs
 C:\Users\tardi\Rocker_Elevator_Customer_Portal\obj\Debug\net5.0\Razor\Views\Home\Building.cshtml.g.cs
 C:\Users\tardi\Rocker_Elevator_Customer_Portal\obj\Debug\net5.0\Razor\Views\Shared\FlashMessage.cshtml.g.cs
+C:\Users\tardi\Rocker_Elevator_Customer_Portal\bin\Debug\net5.0\publish\web.config
+C:\Users\tardi\Rocker_Elevator_Customer_Portal\bin\Debug\net5.0\publish\appsettings.Development.json
+C:\Users\tardi\Rocker_Elevator_Customer_Portal\bin\Debug\net5.0\publish\appsettings.json
+C:\Users\tardi\Rocker_Elevator_Customer_Portal\bin\Debug\net5.0\publish\Rocker_Elevator_Customer_Portal.deps.json
+C:\Users\tardi\Rocker_Elevator_Customer_Portal\bin\Debug\net5.0\publish\Rocker_Elevator_Customer_Portal.runtimeconfig.json
