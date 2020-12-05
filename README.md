@@ -21,7 +21,7 @@ contains the email. If so, we validate :
 ```
 
 -The main (and only) controller for the pages is HomeController. For the Building (building Details) and Products route, we make graphql api calls to retreive the data, which 
-which are then passed as ViewData to the views. For example :
+which are then passed as Jobject throught ViewData to the views. For example :
 
 ```csharp
    Client user = await _userManager.GetUserAsync(User);
@@ -45,7 +45,38 @@ which are then passed as ViewData to the views. For example :
             SetFlash(FlashMessageType.Danger, "There was an error loading your page.");
             return LocalRedirect("/Home/Index");
 ```
+-THis is rendered as a list in a view as such :
 
+```csharp
+    <tbody>
+@foreach (var detail in (JArray)ViewData["details"]) {
+        <tr>
+            <td>
+                @detail["id"]
+            </td>
+        <form role="form" asp-controller="Home" asp-action="sendInfo" method="post">
+            <td>
+                <input type="text" class="form-control" asp-for="address" aria-describedby="emailHelp" value = "@detail["address"]["address1"]" >
+            </td>
+            <td>
+                <input type="text" class="form-control" asp-for="name" aria-describedby="emailHelp" value = "@detail["admContactName"]" >
+            </td>
+            <td>
+                 <input type="text" class="form-control" asp-for="phone" aria-describedby="emailHelp" value = "@detail["admContactPhone"]" >
+            </td>
+            <td>
+                <input type="email" class="form-control" asp-for="email" aria-describedby="emailHelp" value = "@detail["admContactMail"]" >
+            </td>
+            <td>
+                <input type = "hidden" asp-for="addressId"  value = "@detail["address"]["id"]" >
+                <input type = "hidden" asp-for="buildingId"  value = "@detail["id"]" >
+                <button type="submit"  class="btn btn-outline-info">Edit Info</button>
+            </td>
+        </form>
+        </tr>
+}
+
+```
 -We first make the query, and if get a positive result, we got to the view. Otherwise, we're redirected to the root, including a flash message. To implement the flash
 messages, I made a controller for that :
 
