@@ -155,6 +155,8 @@ AS I mentionned in the video, I got that part wrong, which is frustrating consid
 -There's not much to say about the different views. The form is almost exactly as it was, except the authorId is set to the customerId on the controller when posting the form.
 This caused problem since authors and employees were in a belongs_to has_one relationship in the rails project, so I had to change that and re-seed to make it work. (Author now 
 now has relationship with users).
+-As mentionned above, the products and buildgins are passed as view data. For the product "QUick intervention, we also rended buttons, which has an "onClick" method sending the
+information for a specific asset to the submitForm route and processed as for the usual form. For simplicity, quick forms were assigned the same employee.
 
 -SO just to recap, here are the files of interest:
 
