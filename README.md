@@ -1,5 +1,7 @@
 ### ROCKET ELEVATORS CUSTOMER PORTAL ####
 
+https://kemverynice-portal.azurewebsites.net/
+
 Quick readme! Everything related to the Portal AND the graphql API is here. 
 
 YOu can take the customer with email witting_ferdinand@cremin.name and password Abc123@ to enter the site as an already registered customer, or try another one from the database.
