@@ -169,3 +169,8 @@ C:\Users\tardi\Rocker_Elevator_Customer_Portal\obj\Release\net5.0\Rocker_Elevato
 C:\Users\tardi\Rocker_Elevator_Customer_Portal\obj\Release\net5.0\ref\Rocker_Elevator_Customer_Portal.dll
 C:\Users\tardi\Rocker_Elevator_Customer_Portal\obj\Release\net5.0\Rocker_Elevator_Customer_Portal.pdb
 C:\Users\tardi\Rocker_Elevator_Customer_Portal\obj\Release\net5.0\Rocker_Elevator_Customer_Portal.genruntimeconfig.cache
+C:\Users\tardi\Rocker_Elevator_Customer_Portal\bin\Release\net5.0\publish\web.config
+C:\Users\tardi\Rocker_Elevator_Customer_Portal\bin\Release\net5.0\publish\appsettings.Development.json
+C:\Users\tardi\Rocker_Elevator_Customer_Portal\bin\Release\net5.0\publish\appsettings.json
+C:\Users\tardi\Rocker_Elevator_Customer_Portal\bin\Release\net5.0\publish\Rocker_Elevator_Customer_Portal.deps.json
+C:\Users\tardi\Rocker_Elevator_Customer_Portal\bin\Release\net5.0\publish\Rocker_Elevator_Customer_Portal.runtimeconfig.json

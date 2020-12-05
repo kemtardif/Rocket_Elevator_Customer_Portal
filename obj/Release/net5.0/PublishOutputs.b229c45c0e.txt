@@ -38,8 +38,13 @@ C:\Users\tardi\Rocker_Elevator_Customer_Portal\publish\wwwroot\lib\jquery\dist\j
 C:\Users\tardi\Rocker_Elevator_Customer_Portal\publish\wwwroot\lib\jquery\dist\jquery.min.js
 C:\Users\tardi\Rocker_Elevator_Customer_Portal\publish\wwwroot\lib\jquery\dist\jquery.min.map
 C:\Users\tardi\Rocker_Elevator_Customer_Portal\publish\wwwroot\lib\jquery\LICENSE.txt
+C:\Users\tardi\Rocker_Elevator_Customer_Portal\publish\publish\web.config
 C:\Users\tardi\Rocker_Elevator_Customer_Portal\publish\appsettings.Development.json
 C:\Users\tardi\Rocker_Elevator_Customer_Portal\publish\appsettings.json
+C:\Users\tardi\Rocker_Elevator_Customer_Portal\publish\publish\appsettings.Development.json
+C:\Users\tardi\Rocker_Elevator_Customer_Portal\publish\publish\appsettings.json
+C:\Users\tardi\Rocker_Elevator_Customer_Portal\publish\publish\Rocker_Elevator_Customer_Portal.deps.json
+C:\Users\tardi\Rocker_Elevator_Customer_Portal\publish\publish\Rocker_Elevator_Customer_Portal.runtimeconfig.json
 C:\Users\tardi\Rocker_Elevator_Customer_Portal\publish\Rocker_Elevator_Customer_Portal.dll
 C:\Users\tardi\Rocker_Elevator_Customer_Portal\publish\Rocker_Elevator_Customer_Portal.runtimeconfig.json
 C:\Users\tardi\Rocker_Elevator_Customer_Portal\publish\Rocker_Elevator_Customer_Portal.pdb
